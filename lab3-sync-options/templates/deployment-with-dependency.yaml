@@ -1,0 +1,49 @@
+
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+
+  name: app-with-config
+
+spec:
+
+  replicas: 1
+
+  selector:
+
+    matchLabels:
+
+      app: config-user
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: config-user
+
+    spec:
+
+      containers:
+
+      - name: app
+
+        image: nginx:1.21
+
+        volumeMounts:
+
+        - name: config
+
+          mountPath: /etc/config
+
+      volumes:
+
+      - name: config
+
+        configMap:
+
+          name: demo-config
+
